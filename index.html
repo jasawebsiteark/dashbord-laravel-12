@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dasbor UI Modern</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Konfigurasi Tailwind CSS untuk Mode Gelap -->
+    <script>
+        // Konfigurasi Tailwind CSS untuk mengaktifkan mode gelap berdasarkan kelas 'dark' pada elemen html
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    // Anda bisa menambahkan atau menimpa konfigurasi tema di sini jika diperlukan
+                }
+            }
+        }
+    </script>
+    <!-- Font Inter untuk tampilan modern -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome untuk ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" xintegrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0Xp-s+uK/PJQd/9j/eB6cI/2/y8n1D/F0b8c6t6B3N1N6P5z5P5z5Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* Gaya dasar */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f8fc; /* Latar belakang sangat terang, hampir putih */
+            transition: background-color 0.3s ease; /* Transisi halus untuk latar belakang body */
+        }
+        /* Gaya khusus mode gelap */
+        html.dark body {
+            background-color: #1a202c; /* Tailwind gray-900 */
+        }
+        /* Kontainer utama aplikasi dengan sudut lebih membulat */
+        #app-container {
+            height: 100%;
+            border-radius: 2rem; /* Membulatkan kontainer utama */
+            overflow: hidden; /* Penting untuk menyembunyikan konten di luar sudut membulat */
+        }
+        /* Item sidebar aktif */
+        .sidebar-item.active {
+            background-color: #eef2ff; /* Latar belakang biru muda untuk aktif */
+            color: #4f46e5; /* Indigo 600 untuk teks aktif */
+            font-weight: 600;
+        }
+        /* Item sidebar aktif dalam mode gelap */
+        html.dark .sidebar-item.active {
+            background-color: #312e81; /* Indigo 900 untuk aktif dalam mode gelap */
+            color: #a5b4fc; /* Indigo 300 untuk teks aktif dalam mode gelap */
+        }
+        /* Sub-menu yang dapat dibuka/tutup */
+        .submenu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        /* Sub-menu terbuka */
+        .submenu.open {
+            max-height: 500px; /* Tinggi yang ditingkatkan untuk menampung semua sub-menu */
+            transition: max-height 0.5s ease-in;
+        }
+        /* Sembunyikan scrollbar default */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE dan Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+    </style>
+</head>
+<body class="flex flex-col h-screen p-4"> <!-- Padding di body untuk efek floating container -->
+    <div id="app-container" class="flex flex-1 bg-white shadow-xl rounded-3xl overflow-hidden dark:bg-gray-900">
+        <!-- Sidebar Kiri -->
+        <aside class="w-64 bg-white p-6 flex flex-col z-30 md:relative fixed inset-y-0 left-0 transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out dark:bg-gray-800 dark:shadow-xl rounded-l-2xl">
+            <div class="flex items-center mb-10 pl-2">
+                <span class="text-2xl font-bold text-gray-800 flex items-center dark:text-white">
+                    <span class="inline-block bg-indigo-600 text-white p-2 rounded-xl mr-2">A</span> Arkreative
+                </span>
+            </div>
+            <div class="flex-1 overflow-y-auto no-scrollbar">
+                <nav>
+                    <ul class="space-y-2">
+                        <li>
+                            <a href="#" class="sidebar-item flex items-center p-3 rounded-lg active text-indigo-600 font-semibold hover:bg-gray-100 transition duration-200 dark:hover:bg-gray-700">
+                                <i class="fas fa-tachometer-alt text-lg mr-3"></i>
+                                Dasbor
+                            </a>
+                        </li>
+
+                        <!-- Konten (Postingan, Halaman, Media) -->
+                        <li>
+                            <a href="#" class="sidebar-item flex items-center justify-between p-3 rounded-lg text-gray-700 hover:bg-gray-100 transition duration-200 dark:text-gray-300 dark:hover:bg-gray-700" data-toggle-submenu="content">
+                                <span class="flex items-center">
+                                    <i class="fas fa-file-invoice-dollar text-lg mr-3"></i>
+                                    Konten
+                                </span>
+                                <i class="fas fa-chevron-down text-xs ml-auto transition-transform duration-200"></i>
+                            </a>
+                            <ul class="submenu pl-8 mt-1 space-y-1">
+                                <li><a href="#" class="block p-2 rounded-lg text-gray-600 hover:bg-gray-100 transition duration-200 text-sm dark:text-gray-400 dark:hover:bg-gray-700">Postingan</a></li>
+                                <li><a href="#" class="block p-2 rounded-lg text-gray-600 hover:bg-gray-100 transition duration-200 text-sm dark:text-gray-400 dark:hover:bg-gray-700">Halaman</a></li>
+                                <li><a href="#" class="block p-2 rounded-lg text-gray-600 hover:bg-gray-100 transition duration-200 text-sm dark:text-gray-400 dark:hover:bg-gray-700">Media</a></li>
+                                <li><a href="#" class="block p-2 rounded-lg text-gray-600 hover:bg-gray-100 transition duration-200 text-sm dark:text-gray-400 dark:hover:bg-gray-700">Kategori & Tag</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- Komentar -->
+                        <li>
+                            <a href="#" class="sidebar-item flex items-center p-3 rounded-lg text-gray-700 hover:bg-gray-100 transition duration-200 dark:text-gray-300 dark:hover:bg-gray-700">
+                                <i class="fas fa-comments text-lg mr-3"></i>
+                                Komentar
+                            </a>
+                        </li>
+
+                        <!-- Pengguna -->
+                        <li>
+                            <a href="#" class="sidebar-item flex items-center p-3 rounded-lg text-gray-700 hover:bg-gray-100 transition duration-200 dark:text-gray-300 dark:hover:bg-gray-700">
+                                <i class="fas fa-users text-lg mr-3"></i>
+                                Pengguna
+                            </a>
+                        </li>
+
+                        <!-- Tampilan -->
+                        <li>
+                            <a href="#" class="sidebar-item flex items-center justify-between p-3 rounded-lg text-gray-700 hover:bg-gray-100 transition duration-200 dark:text-gray-300 dark:hover:bg-gray-700" data-toggle-submenu="appearance">
+                                <span class="flex items-center">
+                                    <i class="fas fa-palette text-lg mr-3"></i>
+                                    Tampilan
+                                </span>
+                                <i class="fas fa-chevron-down text-xs ml-auto transition-transform duration-200"></i>
+                            </a>
+                            <ul class="submenu pl-8 mt-1 space-y-1">
+                                <li><a href="#" class="block p-2 rounded-lg text-gray-600 hover:bg-gray-100 transition duration-200 text-sm dark:text-gray-400 dark:hover:bg-gray-700">Tema</a></li>
+                                <li><a href="#" class="block p-2 rounded-lg text-gray-600 hover:bg-gray-100 transition duration-200 text-sm dark:text-gray-400 dark:hover:bg-gray-700">Menu</a></li>
+                                <li><a href="#" class="block p-2 rounded-lg text-gray-600 hover:bg-gray-100 transition duration-200 text-sm dark:text-gray-400 dark:hover:bg-gray-700">Widget</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- Alat AI -->
+                        <li>
+                            <a href="#" class="sidebar-item flex items-center p-3 rounded-lg text-gray-700 hover:bg-gray-100 transition duration-200 dark:text-gray-300 dark:hover:bg-gray-700">
+                                <i class="fas fa-robot text-lg mr-3"></i>
+                                Alat AI
+                            </a>
+                        </li>
+
+                         <!-- Pesan -->
+                         <li>
+                            <a href="#" class="sidebar-item flex items-center justify-between p-3 rounded-lg text-gray-700 hover:bg-gray-100 transition duration-200 dark:text-gray-300 dark:hover:bg-gray-700" data-toggle-submenu="messages">
+                                <span class="flex items-center">
+                                    <i class="fas fa-envelope text-lg mr-3"></i>
+                                    Pesan
+                                </span>
+                                <i class="fas fa-chevron-down text-xs ml-auto transition-transform duration-200"></i>
+                            </a>
+                            <ul class="submenu pl-8 mt-1 space-y-1">
+                                <li><a href="#" class="block p-2 rounded-lg text-gray-600 hover:bg-gray-100 transition duration-200 text-sm dark:text-gray-400 dark:hover:bg-gray-700">Langganan</a></li>
+                                <li><a href="#" class="block p-2 rounded-lg text-gray-600 hover:bg-gray-100 transition duration-200 text-sm dark:text-gray-400 dark:hover:bg-gray-700">Kotak Masuk</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- Pengaturan -->
+                        <li>
+                            <a href="#" class="sidebar-item flex items-center justify-between p-3 rounded-lg text-gray-700 hover:bg-gray-100 transition duration-200 dark:text-gray-300 dark:hover:bg-gray-700" data-toggle-submenu="settings">
+                                <span class="flex items-center">
+                                    <i class="fas fa-cog text-lg mr-3"></i>
+                                    Pengaturan
+                                </span>
+                                <i class="fas fa-chevron-down text-xs ml-auto transition-transform duration-200"></i>
+                            </a>
+                            <ul class="submenu pl-8 mt-1 space-y-1">
+                                <li><a href="#" class="block p-2 rounded-lg text-gray-600 hover:bg-gray-100 transition duration-200 text-sm dark:text-gray-400 dark:hover:bg-gray-700">Umum</a></li>
+                                <li><a href="#" class="block p-2 rounded-lg text-gray-600 hover:bg-gray-100 transition duration-200 text-sm dark:text-gray-400 dark:hover:bg-gray-700">Kontak & Sosial</a></li>
+                                <li><a href="#" class="block p-2 rounded-lg text-gray-600 hover:bg-gray-100 transition duration-200 text-sm dark:text-gray-400 dark:hover:bg-gray-700">SEO & Analitik</a></li>
+                                <li><a href="#" class="block p-2 rounded-lg text-gray-600 hover:bg-gray-100 transition duration-200 text-sm dark:text-gray-400 dark:hover:bg-gray-700">Impor & Ekspor</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <!-- Bagian Bawah Sidebar -->
+            <div class="mt-auto pt-6 border-t border-gray-200 dark:border-gray-700">
+                <a href="#" class="sidebar-item flex items-center p-3 rounded-lg text-gray-700 hover:bg-gray-100 transition duration-200 dark:text-gray-300 dark:hover:bg-gray-700">
+                    <i class="fas fa-sign-out-alt text-lg mr-3"></i>
+                    Keluar
+                </a>
+            </div>
+        </aside>
+
+        <!-- Area Konten Utama -->
+        <div class="flex-1 flex flex-col overflow-hidden rounded-r-3xl">
+            <!-- Bilah Navigasi Atas -->
+            <header class="bg-white p-4 flex items-center justify-between shadow-sm border-b border-gray-200 dark:bg-gray-800 dark:shadow-lg dark:border-gray-700">
+                <div class="flex items-center flex-1">
+                    <button class="md:hidden text-gray-600 focus:outline-none focus:text-gray-900 mr-4 dark:text-gray-300 dark:focus:text-white" id="sidebarToggle">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                    <div class="relative flex items-center max-w-md w-full mr-4">
+                        <input type="text" placeholder="Cari..."
+                               class="pl-10 pr-4 py-2 w-full rounded-lg bg-gray-100 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-300 text-gray-700 text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 dark:placeholder-gray-400">
+                        <i class="fas fa-search absolute left-3 text-gray-400"></i>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button class="text-gray-600 hover:text-gray-900 transition duration-200 p-2 rounded-full hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700">
+                        <i class="fas fa-bell text-lg"></i>
+                    </button>
+                    <!-- Tombol Alih Tema -->
+                    <button id="themeToggle" class="text-gray-600 hover:text-gray-900 transition duration-200 p-2 rounded-full hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700">
+                        <i id="themeIcon" class="fas fa-sun text-lg"></i>
+                        <span id="themeText" class="ml-2 text-sm hidden sm:inline">Mode Terang</span>
+                    </button>
+                    <div class="relative">
+                        <button class="flex items-center focus:outline-none" id="userMenuButton">
+                            <img src="https://placehold.co/36x36/60a5fa/ffffff?text=JD" alt="Avatar Pengguna" class="w-9 h-9 rounded-full border-2 border-blue-400 dark:border-blue-300">
+                            <i class="fas fa-chevron-down ml-2 text-gray-500 text-xs hidden sm:block dark:text-gray-400"></i>
+                        </button>
+                        <div id="userMenu" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-20 hidden dark:bg-gray-700 dark:shadow-xl">
+                            <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 text-sm dark:text-gray-200 dark:hover:bg-gray-600">Profil</a>
+                            <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 text-sm dark:text-gray-200 dark:hover:bg-gray-600">Pengaturan</a>
+                            <hr class="my-1 border-gray-200 dark:border-gray-600">
+                            <a href="#" class="block px-4 py-2 text-red-600 hover:bg-gray-100 text-sm dark:text-red-400 dark:hover:bg-gray-600">Keluar</a>
+                        </div>
+                    </div>
+                    <button class="bg-indigo-600 hover:bg-indigo-700 text-white p-2 rounded-full w-9 h-9 flex items-center justify-center transition duration-200 shadow-md">
+                        <i class="fas fa-plus text-sm"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Konten Dasbor Utama -->
+            <main class="flex-1 overflow-y-auto p-6 bg-gray-100 dark:bg-gray-900">
+                <!-- Ringkasan Situs (At a Glance) -->
+                <div class="bg-white p-6 rounded-xl shadow-lg mb-6 border border-gray-200 dark:bg-gray-800 dark:shadow-xl dark:border-gray-700">
+                    <h2 class="text-2xl font-semibold text-gray-800 dark:text-white mb-6">Ringkasan Situs</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200 flex items-center justify-between dark:bg-gray-700 dark:border-gray-600">
+                            <div>
+                                <p class="text-gray-500 text-sm dark:text-gray-400">Total Postingan</p>
+                                <h3 class="text-3xl font-bold text-gray-800 mt-1 dark:text-white">1,234</h3>
+                            </div>
+                            <i class="fas fa-newspaper text-blue-500 text-4xl opacity-75"></i>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200 flex items-center justify-between dark:bg-gray-700 dark:border-gray-600">
+                            <div>
+                                <p class="text-gray-500 text-sm dark:text-gray-400">Total Halaman</p>
+                                <h3 class="text-3xl font-bold text-gray-800 mt-1 dark:text-white">45</h3>
+                            </div>
+                            <i class="fas fa-file-alt text-green-500 text-4xl opacity-75"></i>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200 flex items-center justify-between dark:bg-gray-700 dark:border-gray-600">
+                            <div>
+                                <p class="text-gray-500 text-sm dark:text-gray-400">Total Komentar</p>
+                                <h3 class="text-3xl font-bold text-gray-800 mt-1 dark:text-white">789</h3>
+                            </div>
+                            <i class="fas fa-comments text-purple-500 text-4xl opacity-75"></i>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200 flex items-center justify-between dark:bg-gray-700 dark:border-gray-600">
+                            <div>
+                                <p class="text-gray-500 text-sm dark:text-gray-400">Pengguna Terdaftar</p>
+                                <h3 class="text-3xl font-bold text-gray-800 mt-1 dark:text-white">567</h3>
+                            </div>
+                            <i class="fas fa-users text-yellow-500 text-4xl opacity-75"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Aktivitas Terbaru & Draft Cepat -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200 dark:bg-gray-800 dark:shadow-xl dark:border-gray-700">
+                        <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Aktivitas Terbaru</h2>
+                        <ul class="divide-y divide-gray-100 dark:divide-gray-700">
+                            <li class="py-3 flex items-center">
+                                <i class="fas fa-comment-alt text-blue-400 mr-3"></i>
+                                <p class="flex-1 text-gray-700 dark:text-gray-200">Pengguna <strong>Jane Doe</strong> mengomentari artikel "Memulai dengan Laravel".</p>
+                                <span class="text-gray-500 text-sm">5 menit yang lalu</span>
+                            </li>
+                            <li class="py-3 flex items-center">
+                                <i class="fas fa-plus-circle text-green-400 mr-3"></i>
+                                <p class="flex-1 text-gray-700 dark:text-gray-200">Artikel baru <strong>"Panduan Lengkap Tailwind CSS"</strong> diterbitkan.</p>
+                                <span class="text-gray-500 text-sm">1 jam yang lalu</span>
+                            </li>
+                            <li class="py-3 flex items-center">
+                                <i class="fas fa-user-plus text-purple-400 mr-3"></i>
+                                <p class="flex-1 text-gray-700 dark:text-gray-200">Pengguna baru <strong>Mike Smith</strong> terdaftar.</p>
+                                <span class="text-gray-500 text-sm">3 jam yang lalu</span>
+                            </li>
+                            <li class="py-3 flex items-center">
+                                <i class="fas fa-edit text-yellow-400 mr-3"></i>
+                                <p class="flex-1 text-gray-700 dark:text-gray-200">Halaman <strong>"Tentang Kami"</strong> diperbarui.</p>
+                                <span class="text-gray-500 text-sm">Kemarin</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200 dark:bg-gray-800 dark:shadow-xl dark:border-gray-700">
+                        <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Draft Cepat</h2>
+                        <div class="space-y-4">
+                            <div>
+                                <label for="quickDraftTitle" class="block text-gray-700 text-sm font-medium mb-1 dark:text-gray-300">Judul:</label>
+                                <input type="text" id="quickDraftTitle" placeholder="Judul draf Anda" class="w-full p-2 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200">
+                            </div>
+                            <div>
+                                <label for="quickDraftContent" class="block text-gray-700 text-sm font-medium mb-1 dark:text-gray-300">Konten:</label>
+                                <textarea id="quickDraftContent" rows="5" placeholder="Tulis sesuatu..." class="w-full p-2 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200"></textarea>
+                            </div>
+                            <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg font-semibold text-sm transition duration-200">Simpan Draf</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Postingan Terbaru -->
+                <div class="bg-white p-6 rounded-xl shadow-lg mb-6 border border-gray-200 dark:bg-gray-800 dark:shadow-xl dark:border-gray-700">
+                    <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Postingan Terbaru</h2>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                            <thead class="bg-gray-50 dark:bg-gray-700">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tl-lg dark:text-gray-300">Judul</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">Penulis</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">Status</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tr-lg dark:text-gray-300">Tanggal Publikasi</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">Memulai dengan Laravel 10</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-200">Admin</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100">
+                                            Diterbitkan
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-200">2025-06-20</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">Panduan Lengkap Tailwind CSS</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-200">Admin</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100">
+                                            Diterbitkan
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-200">2025-06-18</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">Membangun REST API dengan Laravel Sanctum</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-200">John Doe</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-800 dark:text-yellow-100">
+                                            Draf
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-200">2025-06-15</td>
+                                </tr>
+                                <!-- Baris lainnya sesuai kebutuhan -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Komentar Terbaru -->
+                <div class="bg-white p-6 rounded-xl shadow-lg mb-6 border border-gray-200 dark:bg-gray-800 dark:shadow-xl dark:border-gray-700">
+                    <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Komentar Terbaru</h2>
+                    <ul class="divide-y divide-gray-100 dark:divide-gray-700">
+                        <li class="py-3 flex items-start">
+                            <img src="https://placehold.co/32x32/cccccc/333333?text=PJ" alt="User Avatar" class="w-8 h-8 rounded-full mr-3">
+                            <div class="flex-1">
+                                <p class="text-gray-800 font-semibold dark:text-white">Paul J. <span class="text-gray-500 font-normal text-sm">tentang "Memulai dengan Laravel"</span></p>
+                                <p class="text-gray-700 text-sm mt-1 dark:text-gray-200">"Artikel yang sangat membantu! Penjelasan yang jelas dan mudah diikuti."</p>
+                                <span class="text-gray-500 text-xs mt-2 block">10 menit yang lalu</span>
+                            </div>
+                        </li>
+                        <li class="py-3 flex items-start">
+                            <img src="https://placehold.co/32x32/cccccc/333333?text=AS" alt="User Avatar" class="w-8 h-8 rounded-full mr-3">
+                            <div class="flex-1">
+                                <p class="text-gray-800 font-semibold dark:text-white">Anna S. <span class="text-gray-500 font-normal text-sm">tentang "Panduan Lengkap Tailwind CSS"</span></p>
+                                <p class="text-gray-700 text-sm mt-1 dark:text-gray-200">"Saya suka desainnya! Apakah ada tutorial tentang cara mengimplementasikan mode gelap?"</p>
+                                <span class="text-gray-500 text-xs mt-2 block">1 jam yang lalu</span>
+                            </div>
+                        </li>
+                        <li class="py-3 flex items-start">
+                            <img src="https://placehold.co/32x32/cccccc/333333?text=MK" alt="User Avatar" class="w-8 h-8 rounded-full mr-3">
+                            <div class="flex-1">
+                                <p class="text-gray-800 font-semibold dark:text-white">Mark K. <span class="text-gray-500 font-normal text-sm">tentang "Membangun REST API"</span></p>
+                                <p class="text-gray-700 text-sm mt-1 dark:text-gray-200">"Sanctum adalah game-changer. Terima kasih untuk panduan mendalam ini!"</p>
+                                <span class="text-gray-500 text-xs mt-2 block">1 hari yang lalu</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        // Logika Pengalihan Tema
+        const themeToggleBtn = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const themeText = document.getElementById('themeText');
+        const htmlElement = document.documentElement; // Dapatkan elemen html (elemen root)
+
+        // Fungsi untuk mengatur tema
+        function setTheme(theme) {
+            if (theme === 'dark') {
+                htmlElement.classList.add('dark');
+                themeIcon.classList.remove('fa-sun'); // Ubah ikon menjadi bulan
+                themeIcon.classList.add('fa-moon');
+                themeText.textContent = 'Mode Gelap';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                htmlElement.classList.remove('dark');
+                themeIcon.classList.remove('fa-moon'); // Ubah ikon menjadi matahari
+                themeIcon.classList.add('fa-sun');
+                themeText.textContent = 'Mode Terang';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        // Periksa tema yang disimpan saat halaman dimuat
+        // Ini memastikan tema tetap ada di seluruh sesi
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            setTheme(savedTheme);
+        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            // Jika tidak ada tema yang disimpan, periksa preferensi sistem pengguna
+            setTheme('dark');
+        } else {
+            // Default ke mode terang jika tidak ada preferensi yang disimpan dan preferensi sistem bukan gelap
+            setTheme('light');
+        }
+
+        // Alihkan tema saat tombol diklik
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                setTheme('light'); // Beralih ke mode terang
+            } else {
+                setTheme('dark'); // Beralih ke mode gelap
+            }
+        });
+
+        // Toggle Sidebar untuk Seluler
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebar = document.getElementById('sidebar');
+
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('-translate-x-full');
+            sidebar.classList.toggle('translate-x-0');
+        });
+
+        // Tutup sidebar saat mengklik di luar pada seluler
+        document.addEventListener('click', (event) => {
+            // Periksa apakah klik berada di luar sidebar DAN tombol toggle DAN sidebar terbuka
+            // Tambahkan pengecekan null untuk sidebar dan sidebarToggle
+            if (sidebar && sidebarToggle && !sidebar.contains(event.target) && !sidebarToggle.contains(event.target) && sidebar.classList.contains('translate-x-0')) {
+                sidebar.classList.add('-translate-x-full');
+                sidebar.classList.remove('translate-x-0');
+            }
+        });
+
+        // Toggle Menu Dropdown Pengguna
+        const userMenuButton = document.getElementById('userMenuButton');
+        const userMenu = document.getElementById('userMenu');
+
+        userMenuButton.addEventListener('click', (event) => {
+            userMenu.classList.toggle('hidden');
+            event.stopPropagation(); // Mencegah event mencapai pendengar klik dokumen
+        });
+
+        // Tutup dropdown pengguna jika diklik di luar
+        document.addEventListener('click', (event) => {
+            if (!userMenuButton.contains(event.target) && !userMenu.contains(event.target)) {
+                userMenu.classList.add('hidden');
+            }
+        });
+
+        // Skrip untuk toggle sub-menu
+        document.querySelectorAll('[data-toggle-submenu]').forEach(item => {
+            item.addEventListener('click', (event) => {
+                event.preventDefault(); // Mencegah navigasi default tautan
+                const submenu = item.nextElementSibling; // Mengambil ul (sub-menu) berikutnya
+                const chevronIcon = item.querySelector('.fa-chevron-down');
+
+                if (submenu && submenu.classList.contains('submenu')) {
+                    submenu.classList.toggle('open');
+                    chevronIcon.classList.toggle('rotate-180'); // Putar ikon panah
+                }
+            });
+        });
+    </script>
+</body>
+</html>
